@@ -76,6 +76,7 @@ If using the `-f` option, create `links.txt` in the same directory as `install.s
 
 This script **requires** the following external command-line tools to be installed and accessible in your system's `PATH` environment variable, OR placed in the **same directory** as the `install_modules.bat` script:
 
+* **`wget.exe`**: For downloading the manifests. (get it with "winget install -e --id JernejSimoncic.Wget")
 * **`curl.exe`**: For downloading files. Modern Windows 10/11 often include this.
     * To check: Open Command Prompt and type `curl --version`.
     * If not found, download from (https://curl.se/windows/).
