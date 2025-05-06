@@ -1,6 +1,6 @@
 # Foundry VTT Module Downloader Script
 
-This document provides instructions for using scripts to download and extract Foundry VTT modules using their manifest URLs. We offer two versions:
+This document provides instructions for using scripts to download and extract Foundry VTT modules using their manifest URLs. There are two versions:
 
 1.  A **bash script (`install.sh`)** for **Linux and macOS users**.
 2.  A **bat script (`install_modules.bat`)** for **Windows execution**.
@@ -119,3 +119,5 @@ If using the `-f` option, create `links.txt` in the same directory as `install_m
 * Each manifest URL on a new line.
 * Lines starting with `#` are intended as comments (the script makes a basic attempt to skip them).
 * Empty lines are intended to be skipped.
+
+**I didn't/couldn't test the windows version so please tell when issues arise**
