@@ -3,7 +3,7 @@
 This document provides instructions for using scripts to download and extract Foundry VTT modules using their manifest URLs. We offer two versions:
 
 1.  A **bash script (`install.sh`)** for **Linux and macOS users**.
-2.  A **PowerShell script (`Install-Modules.ps1`)** for **Windows execution**.
+2.  A **bat script (`install_modules.bat`)** for **Windows execution**.
 
 Choose the script appropriate for your operating system and environment.
 
