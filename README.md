@@ -55,7 +55,7 @@ Execute the script from your terminal. You can provide manifest URLs in two ways
 
 1.  **Directly as Command-Line Arguments:**
     ```bash
-    ./install.sh [URL1] [URL2] ...
+    ./install.sh "URL1" "URL2" ...
     ```
 
 2.  **From a `links.txt` File (using the `-f` flag):**
