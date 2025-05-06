@@ -1,4 +1,4 @@
-# Foundry VTT Module Downloader Scripts
+# Foundry VTT Module Downloader Script
 
 This document provides instructions for using scripts to download and extract Foundry VTT modules using their manifest URLs. We offer two versions:
 
@@ -44,6 +44,7 @@ Before running `install.sh`, ensure you have the following command-line tools in
 
 1.  **Save the Script:** Ensure the code for your bash script is saved as `install.sh` in your modules directory.
 2.  **Make it Executable:** Open your terminal, navigate to the modules directory, and run:
+  
     ```bash
     chmod +x install.sh
     ```
@@ -69,56 +70,52 @@ If using the `-f` option, create `links.txt` in the same directory as `install.s
 * Each manifest URL should be on a new line.
 * Empty lines are ignored.
 
-## Using the PowerShell Script (`Install-Modules.ps1`)
-*(For Windows - Native Execution)*
+## Using the Windows Batch Script (`install_modules.bat`)
 
-### Prerequisites (PowerShell)
+### Prerequisites (Batch - CRUCIAL!)
 
-Before running `Install-Modules.ps1`, ensure your Windows environment meets these requirements:
+This script **requires** the following external command-line tools to be installed and accessible in your system's `PATH` environment variable, OR placed in the **same directory** as the `install_modules.bat` script:
 
-* **PowerShell 5.1 or newer**: This is standard on Windows 10 and Windows 11. You can check your version by opening PowerShell and typing `$PSVersionTable.PSVersion`.
-* **Execution Policy**: By default, PowerShell's execution policy might prevent you from running local scripts. If you encounter an error related to script execution being disabled, you may need to adjust this policy. To do this (you only need to do it once):
-    1.  Open PowerShell **as Administrator**.
-    2.  Run the command: `Set-ExecutionPolicy RemoteSigned`
-    3.  When prompted, type `Y` and press Enter.
-    *(You can check your current policy with `Get-ExecutionPolicy`.)*
+* **`curl.exe`**: For downloading files. Modern Windows 10/11 often include this.
+    * To check: Open Command Prompt and type `curl --version`.
+    * If not found, download from (https://curl.se/windows/).
+* **`jq.exe`**: Essential for parsing JSON manifest files. This tool is **not** included with Windows.
+    * Download `jq.exe` (e.g., `jq-win64.exe`, then rename to `jq.exe`) from (https://jqlang.github.io/jq/download/).
+* **`tar.exe`**: For unzipping `.zip` files. Modern Windows 10/11 often include this, providing basic archive operations.
+    * To check: Open Command Prompt and type `tar --version`.
+    *(Alternatively, if `tar.exe` is missing or problematic, you could modify the script to use `7za.exe` from 7-Zip, which is a very robust archiver, but you'd need to install 7-Zip and adjust the unzip command within the script code.)*
 
-### Setup (PowerShell)
+**Without `curl.exe`, `jq.exe`, and `tar.exe` (or a suitable replacement for `tar.exe`) correctly set up, this Batch script will NOT function.** The script includes a reminder and a `PAUSE` at the beginning for you to acknowledge this.
 
-1.  **Obtain the Script**: Ensure you have the `Install-Modules.ps1` PowerShell script.
-2.  **Save the Script**: Save the file into your modules directory.
+### Setup (Batch)
 
-### How to Run (`Install-Modules.ps1`)
+1.  **Obtain the Script**: Ensure you have the `install_modules.bat` Batch script code.
+2.  **Place Prerequisites**: Ensure `curl.exe`, `jq.exe`, and `tar.exe` are either in your system PATH or in the modules directory.
 
-1.  **Open PowerShell**: You can open a normal PowerShell window.
-2.  **Navigate to Script Directory**: Use the `cd` command to go to the folder where you saved `Install-Modules.ps1`. For example:
-    ```powershell
-    cd "C:\Path\To\Your\Scripts"
+### How to Run (`install_modules.bat`)
+
+1.  **Open Command Prompt (`cmd.exe`)**.
+2.  **Navigate to Script Directory**: Use `cd` to go to the folder where your modules folder is saved.
+    ```cmd
+    cd C:\Path\To\Your\Modules
     ```
 3.  **Execute the Script**:
     You can provide manifest URLs in two ways:
 
     * **Directly as Command-Line Arguments**:
-        ```powershell
-        .\Install-Modules.ps1 "URL1" "URL2" ...
+        ```cmd
+        install_modules.bat "URL1" "URL2" ...
         ```
 
-    * **From a `links.txt` File (using the `-FromFile` switch)**:
-        ```powershell
-        .\Install-Modules.ps1 -FromFile
+    * **From a `links.txt` File (using the `-f` flag)**:
+        ```cmd
+        install_modules.bat -f
         ```
-        This tells the script to read URLs from a file named `links.txt`. This `links.txt` file **must be located in the same directory as the `Install-Modules.ps1` script itself**, as the script uses `$PSScriptRoot` to find it.
+        `links.txt` should be in the same directory as `install_modules.bat`.
 
-**Command-Line Options:**
+#### `links.txt` File Format (for Batch script)
 
-* **`"URL1" "URL2" ...`**: One or more manifest URLs (these are positional parameters).
-* **`-FromFile`**: A switch parameter. If present, the script reads URLs from `links.txt`.
-
-If no URLs are provided (either directly or via `-FromFile`), a usage message is displayed by the script.
-
-#### `links.txt` File Format (for PowerShell script)
-
-If using the `-FromFile` option, create a plain text file named `links.txt` in the *same directory* as your `Install-Modules.ps1` script:
-* Each manifest URL should be on a new line.
-* Lines starting with `#` are treated as comments and will be ignored.
-* Empty lines will also be ignored.
+If using the `-f` option, create `links.txt` in the same directory as `install_modules.bat`:
+* Each manifest URL on a new line.
+* Lines starting with `#` are intended as comments (the script makes a basic attempt to skip them).
+* Empty lines are intended to be skipped.
